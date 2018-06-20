@@ -1,6 +1,4 @@
 $( document ).ready(function() {
-    // initialize firebase
-    
     
     var config = {
         apiKey: "AIzaSyAu6nOg2pXlYu-t88GBnqbGx2Yb5AjfrPU",
@@ -14,7 +12,6 @@ $( document ).ready(function() {
     
       var database = firebase.database();
 
-      //firebase event for adding train to the database and a row in the html when a user adds an entry
       database.ref().on("child_added", function(childSnapshot, prevChildKey) {
         
           //assign firebase variables to snapshots
@@ -23,7 +20,7 @@ $( document ).ready(function() {
           var trainFirst = childSnapshot.val().first;
           var trainFreq = childSnapshot.val().freq;
       
-          //train math (referenced "train predictions" in firbase activities)
+          //train math (referenced "train predictions" in firebase activities)
               //assumptions
               var tFrequency = trainFreq;
               var firstTime = trainFirst;
