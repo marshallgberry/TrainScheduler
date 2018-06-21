@@ -43,7 +43,7 @@ $( document ).ready(function() {
               var trainNext = moment().add(minAway, "minutes").format("h:mm A");
               console.log("ARRIVAL TIME: " + trainNext);
       
-        //append train data to table
+        //append train data
       $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + trainFreq +
        "</td><td>" + trainNext + "</td><td>" + minAway + "</td></tr>");
       }, function(errorObject){
@@ -54,7 +54,7 @@ $( document ).ready(function() {
       $("#add-train-btn").on("click", function(event) {
           event.preventDefault();
         
-
+          
           //grabs user input
           var trainName = $("#train-name-input").val().trim();
           var trainDest = $("#dest-input").val().trim();
@@ -69,13 +69,61 @@ $( document ).ready(function() {
             freq: trainFreq,
           };
         
-          //pushing train info to firebase
+          //push train info to firebase
           database.ref().push(newTrain);
       
-        
-
-          //log successful
+          
           console.log("Train successfully added");
+
+
+          //an unnecessary alert box
+            var ALERT_TITLE = "Don't Stop Believin'";
+            var ALERT_BUTTON_TEXT = "Please Stop";
+
+                if(document.getElementById) {
+                window.alert = function(txt) {
+                createCustomAlert(txt);
+          }
+      }
+
+      function createCustomAlert(txt) {
+          d = document;
+
+          if(d.getElementById("modalContainer")) return;
+
+          mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
+          mObj.id = "modalContainer";
+          mObj.style.height = d.documentElement.scrollHeight + "px";
+
+          alertObj = mObj.appendChild(d.createElement("div"));
+          alertObj.id = "alertBox";
+          if(d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
+          alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth)/2 + "px";
+          alertObj.style.visiblity="visible";
+
+          h1 = alertObj.appendChild(d.createElement("h1"));
+          h1.appendChild(d.createTextNode(ALERT_TITLE));
+
+          msg = alertObj.appendChild(d.createElement("p"));
+          //msg.appendChild(d.createTextNode(txt));
+          msg.innerHTML = txt;
+
+          btn = alertObj.appendChild(d.createElement("a"));
+          btn.id = "closeBtn";
+          btn.appendChild(d.createTextNode(ALERT_BUTTON_TEXT));
+          btn.href = "#";
+          btn.focus();
+          btn.onclick = function() { removeCustomAlert();return false; }
+
+          alertObj.style.display = "block";
+
+      }
+
+      function removeCustomAlert() {
+          document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
+      }
+
+          alert("");
         
           //clear text-boxes
           $("#train-name-input").val("");
